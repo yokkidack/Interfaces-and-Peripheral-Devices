@@ -1,12 +1,10 @@
 /*
- PCI devices search. Using kernel API for communication
- with PCI bus.
+ PCI devices identification. Using C++ and
+ SetupAPI. Using external source of VEN&DEV
+ for correlation.
 */
 
-#include <linux/pci>
-
-int main(int argc, char* argv[]) 
-{
-  struct pci_dev* pci;
-  return 0; 
+int main(int argc, char* argv[]) {
+ 
+ return 0;
 }
