@@ -14,6 +14,7 @@
 #include <iterator>
 #include <iostream>
 #include <string>
+#include "Header.h"
 using namespace std;
 
 string getDeviceInfo(string);
@@ -72,10 +73,8 @@ int main(int argc, char *argv[])
 
 string getDeviceInfo(string str)
 {
-	string vendor = str.substr(4, 8);
-	string device = str.substr(13, 8);
-	string result = "\"" + vendor + "\"" + "," + "\"" + device + "\"";
-	//cout << vendor << " " << device << endl;
-	cout << result << endl;
-	return result;
+	string vendor = str.substr(8, 4);
+	string device = str.substr(17, 4);
+	cout << vendor + " " + device << endl;
+	return vendor;
 }
