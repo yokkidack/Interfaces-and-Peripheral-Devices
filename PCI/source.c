@@ -1,5 +1,5 @@
 /*
- PCI devices search. Using kernel API for communicating
+ PCI devices search. Using kernel API for communication
  with PCI bus.
 */
 
