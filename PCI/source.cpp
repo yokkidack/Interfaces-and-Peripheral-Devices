@@ -16,7 +16,7 @@
 #include <string>
 using namespace std;
 
-char* getDeviceInfo(string);
+string getDeviceInfo(string);
 
 int main(int argc, char *argv[])
 {
@@ -70,10 +70,12 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-char* getDeviceInfo(string str)
+string getDeviceInfo(string str)
 {
 	string vendor = str.substr(4, 8);
 	string device = str.substr(13, 8);
-	cout << vendor << " " << device << endl;
-	return NULL;
+	string result = "\"" + vendor + "\"" + "," + "\"" + device + "\"";
+	//cout << vendor << " " << device << endl;
+	cout << result << endl;
+	return result;
 }
