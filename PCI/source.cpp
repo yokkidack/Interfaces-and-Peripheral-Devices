@@ -14,13 +14,21 @@
 #include <iterator>
 #include <iostream>
 #include <string>
-#include "Header.h"
+#include <fstream>
+#include <limits>
+//#include "header.h"
+#include "pci0.h"
 using namespace std;
 
-string getDeviceInfo(string);
+_PCI_DEVTABLE temp;
+_PCI_DEVTABLE search(_PCI_DEVTABLE&);
+
+_PCI_DEVTABLE getDeviceInfo(string);
+string getInfo(char*, string);
 
 int main(int argc, char *argv[])
 {
+	setlocale(LC_ALL, "RUSSIAN");
 	HDEVINFO hDevInfo;
 	SP_DEVINFO_DATA deviceInfoData;
 	deviceInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
@@ -42,7 +50,9 @@ int main(int argc, char *argv[])
 			hDevInfo,
 			&deviceInfoData,
 			SPDRP_HARDWAREID,
+			//SPDRP_DEVICEDESC,
 			&data,
+			//(PBYTE)buffer,
 			(PBYTE)buffer,
 			bufferSize,
 			&bufferSize))
@@ -65,18 +75,41 @@ int main(int argc, char *argv[])
 	}
 
 
-	getDeviceInfo(devices.front());
+	while (devices.size() != 0)
+	{
+		_PCI_DEVTABLE q = getDeviceInfo(devices.front());
+		search(q);
+		devices.pop_front();		
+	}
+	
+	//readCSV(argv[0], a);
 	SetupDiDestroyDeviceInfoList(hDevInfo);
 
 	return 0;
 }
 
-string getDeviceInfo(string str)
+_PCI_DEVTABLE getDeviceInfo(string str)
 {
+	std::string a = str;
 	string vendor = str.substr(8, 4);
+	//size_t pos = str.find("&SUBSYS");
+	//size_t pos1 = str.find("&DEV_");
 	string device = str.substr(17, 4);
-	cout << vendor + " " + device << endl;
-	return vendor;
+	//string device = str.substr(pos, pos1);
+	//string result = "\"" + vendor + "\"" + "," + "\"" + device + "\"";
+	string result0 = "0x" + vendor;
+	string result1 = "0x" + device;
+	cout << result0 + " " + result1 << endl;
+	return temp = { result0, result1, NULL, NULL };
+	//search(temp);
+	//cout << vendor + " " + device << endl;
+	//return vendor;
+	//return NULL;
+}
+
+string getInfo(char* path, string s)
+{
+	return NULL;
 }
 
 _PCI_DEVTABLE search(_PCI_DEVTABLE &temp)
