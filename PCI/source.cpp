@@ -78,3 +78,21 @@ string getDeviceInfo(string str)
 	cout << vendor + " " + device << endl;
 	return vendor;
 }
+
+_PCI_DEVTABLE search(_PCI_DEVTABLE &temp)
+{
+	for (int i = 0; i < PCI_DEVTABLE_LEN; i++)
+	{
+		if (temp.VenId == PciDevTable[i].VenId)
+		{
+			if (temp.DevId == PciDevTable[i].DevId)
+			{
+				//cout << "YEA!" << endl;
+				cout << PciDevTable[i].ChipDesc << endl;
+				return PciDevTable[i];
+			}
+		}
+	}
+
+	return temp;
+}
