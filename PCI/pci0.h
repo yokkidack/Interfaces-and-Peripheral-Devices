@@ -1,7 +1,5 @@
-
 #include <string>
 using namespace std;
-#define	PCI_DEVTABLE_LEN	(sizeof(PciDevTable)/sizeof(PCI_DEVTABLE))
 
 typedef struct _PCI_DEVTABLE
 {
@@ -9,9 +7,9 @@ typedef struct _PCI_DEVTABLE
 	string	DevId;
 	char *	Chip;
 	char *	ChipDesc;
-}  PCI_DEVTABLE, *PPCI_DEVTABLE;
+} PCI_DEVTABLE, *PPCI_DEVTABLE;
 
-PCI_DEVTABLE	PciDevTable[] =
+_PCI_DEVTABLE PciDevTable[] =
 {
 	{ "0x165C","0x0002", "FT232BL", "FT232BL"},
 	{ "0x16AE","0x000A", "SafeXcel-1841", "Crypto Accelerator"},
@@ -7882,3 +7880,4 @@ PCI_DEVTABLE	PciDevTable[] =
 { "0x11D5","0x0117", "10117", "Versatec Parallel Interface (VPI) + Centronics"},
 { "0x11D5","0x0118", "10118", "DR11-W emulator"},
 };
+#define	PCI_DEVTABLE_LEN	(sizeof(PciDevTable)/sizeof(PCI_DEVTABLE))
