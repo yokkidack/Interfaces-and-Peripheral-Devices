@@ -14,25 +14,32 @@
 #include "pci0.h"
 using namespace std;
 
+void init(list<string>&, HDEVINFO&);
 list<_PCI_DEVTABLE> pciSearch(list<_PCI_DEVTABLE>&);
 list<_PCI_DEVTABLE> subString(list<string>);
 void print(list<_PCI_DEVTABLE>&);
 
-string getInfo(char*, string);
-
 int main(int argc, char *argv[])
 {
-	list<_PCI_DEVTABLE> result;
+	list<string> devices;
 	HDEVINFO hDevInfo;
+	init(devices, hDevInfo);
+	list<_PCI_DEVTABLE> result = pciSearch(subString(devices));
+	SetupDiDestroyDeviceInfoList(hDevInfo);
+	print(result);
+
+	return 0;
+}
+
+void init(list<string>& devices, HDEVINFO& hDevInfo)
+{
 	SP_DEVINFO_DATA deviceInfoData;
 	deviceInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
-	list<string> devices;
 
-	if ((hDevInfo = SetupDiGetClassDevs(NULL,
-		REGSTR_KEY_PCIENUM,
-		0,
-		DIGCF_PRESENT | DIGCF_ALLCLASSES)) == INVALID_HANDLE_VALUE)
-	exit(1);
+	if ((hDevInfo = SetupDiGetClassDevs(NULL, REGSTR_KEY_PCIENUM, 0, DIGCF_PRESENT | DIGCF_ALLCLASSES)) == INVALID_HANDLE_VALUE)
+	{
+		exit(1);
+	}
 
 	for (DWORD i = 0; (SetupDiEnumDeviceInfo(hDevInfo, i, &deviceInfoData)); i++)
 	{
@@ -40,38 +47,31 @@ int main(int argc, char *argv[])
 		LPTSTR buffer = NULL;
 		DWORD bufferSize = 0;
 
-		while (!SetupDiGetDeviceRegistryProperty(
-			hDevInfo,
-			&deviceInfoData,
-			SPDRP_HARDWAREID,
-			&data,
-			(PBYTE)buffer,
-			bufferSize,
-			&bufferSize))
+		while (!SetupDiGetDeviceRegistryProperty(hDevInfo,&deviceInfoData,SPDRP_HARDWAREID,&data,(PBYTE)buffer,bufferSize,&bufferSize))
 		{
 			if (GetLastError() == ERROR_INSUFFICIENT_BUFFER)
 			{
 				if (buffer)
+				{
 					LocalFree(buffer);
+				}
 				buffer = (LPTSTR)LocalAlloc(LPTR, bufferSize * 2);
 			}
 			else
+			{
 				break;
+			}
 		}
 
 		devices.push_back((string)buffer);
 
 		if (buffer)
+		{
 			LocalFree(buffer);
+		}
 	}
 
-	list<_PCI_DEVTABLE> q = subString(devices);
-	result = pciSearch(q);
-
-	print(result);
-	SetupDiDestroyDeviceInfoList(hDevInfo);
-
-	return 0;
+	
 }
 
 void print(list<_PCI_DEVTABLE> &temp)
