@@ -14,8 +14,8 @@
 #include "pci0.h"
 using namespace std;
 
-list<_PCI_DEVTABLE> search(list<_PCI_DEVTABLE>&);
-list<_PCI_DEVTABLE> getDeviceInfo(list<string>);
+list<_PCI_DEVTABLE> pciSearch(list<_PCI_DEVTABLE>&);
+list<_PCI_DEVTABLE> subString(list<string>);
 void print(list<_PCI_DEVTABLE>&);
 
 string getInfo(char*, string);
@@ -23,8 +23,6 @@ string getInfo(char*, string);
 int main(int argc, char *argv[])
 {
 	list<_PCI_DEVTABLE> result;
-	list<_PCI_DEVTABLE> rt;
-	setlocale(LC_ALL, "RUSSIAN");
 	HDEVINFO hDevInfo;
 	SP_DEVINFO_DATA deviceInfoData;
 	deviceInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
@@ -67,8 +65,8 @@ int main(int argc, char *argv[])
 			LocalFree(buffer);
 	}
 
-	list<_PCI_DEVTABLE> q = getDeviceInfo(devices);
-	result = search(q);
+	list<_PCI_DEVTABLE> q = subString(devices);
+	result = pciSearch(q);
 
 	print(result);
 	SetupDiDestroyDeviceInfoList(hDevInfo);
@@ -88,9 +86,9 @@ void print(list<_PCI_DEVTABLE> &temp)
 	}
 }
 
-list<_PCI_DEVTABLE> getDeviceInfo(list<string> str)
+list<_PCI_DEVTABLE> subString(list<string> str)
 {
-	list<_PCI_DEVTABLE> ty;
+	list<_PCI_DEVTABLE> fullInfo;
 	while (str.size() != 0)
 	{
 		_PCI_DEVTABLE temp;
@@ -99,27 +97,26 @@ list<_PCI_DEVTABLE> getDeviceInfo(list<string> str)
 		string result0 = "0x" + vendor;
 		string result1 = "0x" + device;
 		temp = { result0, result1, NULL, NULL };
-		ty.push_front(temp);
+		fullInfo.push_front(temp);
 		str.pop_front();
 	}
-	return ty;
+	return fullInfo;
 }
 
-list<_PCI_DEVTABLE> search(list<_PCI_DEVTABLE>& temp)
+list<_PCI_DEVTABLE> pciSearch(list<_PCI_DEVTABLE>& temp)
 {
-	list<_PCI_DEVTABLE> devs;
+	list<_PCI_DEVTABLE> completeList;
 	while (temp.size() != 0)
 	{
 		for (int i = 0; i < PCI_DEVTABLE_LEN; i++)
 		{
 			if (temp.front().VenId == PciDevTable[i].VenId && temp.front().DevId == PciDevTable[i].DevId)
 			{
-				devs.push_front(PciDevTable[i]);
+				completeList.push_front(PciDevTable[i]);
 				break;
 			}
 		}
 		temp.pop_front();
-		
 	}
-	return devs;
+	return completeList;
 }
