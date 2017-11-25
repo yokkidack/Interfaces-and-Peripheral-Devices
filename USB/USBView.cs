@@ -29,6 +29,7 @@ namespace Laba_4
         public USBView()
         {
             InitializeComponent();
+            ejectButton.Enabled = false;
         }
 
         private void LoadForm(object sender, EventArgs e)
@@ -41,6 +42,7 @@ namespace Laba_4
         {
             _deviceList = _manager.DeviseListCreate();
             usbList.Items.Clear();
+            ejectButton.Enabled = false;
 
             foreach (Usb device in _deviceList)
             {
@@ -52,7 +54,10 @@ namespace Laba_4
                     device.TotalSpace
                 });
                 usbList.Items.Add(deviceInfo);
-            }           
+            }
+
+            if (_deviceList.Any())
+                ejectButton.Enabled = true;
         }
 
         private void TickTimer(object sender, EventArgs e)//по окончания работы таймера
@@ -72,6 +77,27 @@ namespace Laba_4
                 MessageBox.Show("Congratulations", "Message", MessageBoxButtons.OK);
             }
             ReloadForm();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //bool isEjected = _deviceList[usbList.HitTest(e.Location).Item.Index].EjectDevice();//по двойному нажатию на девайс пытается его извлечь
+            ListViewItem temp = usbList.SelectedItems[0];
+            bool isEjected = _deviceList[usbList.FocusedItem.Index].EjectDevice();
+            if (!isEjected)
+            {
+                MessageBox.Show("Can't eject", "Message", MessageBoxButtons.OK);
+            }
+            else
+            {
+                MessageBox.Show("Congratulations", "Message", MessageBoxButtons.OK);
+            }
+            ReloadForm();
+        }
+
+        private void usbList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

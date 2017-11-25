@@ -38,6 +38,7 @@
             this.FreeSpace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.UsedSpace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TotalSpace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ejectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // timer
@@ -74,38 +75,50 @@
             this.TotalSpace});
             this.usbList.Location = new System.Drawing.Point(12, 12);
             this.usbList.Name = "usbList";
-            this.usbList.Size = new System.Drawing.Size(445, 381);
+            this.usbList.Size = new System.Drawing.Size(445, 180);
             this.usbList.TabIndex = 7;
             this.usbList.UseCompatibleStateImageBehavior = false;
             this.usbList.View = System.Windows.Forms.View.Details;
+            this.usbList.SelectedIndexChanged += new System.EventHandler(this.usbList_SelectedIndexChanged);
             this.usbList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ExecuteDevice);
             // 
             // DeviceName
             // 
-            this.DeviceName.Text = "Name";
+            this.DeviceName.Text = "Название";
             this.DeviceName.Width = 111;
             // 
             // FreeSpace
             // 
-            this.FreeSpace.Text = "Free";
+            this.FreeSpace.Text = "Доступно";
             this.FreeSpace.Width = 80;
             // 
             // UsedSpace
             // 
-            this.UsedSpace.Text = "Used";
+            this.UsedSpace.Text = "Использовано";
             this.UsedSpace.Width = 70;
             // 
             // TotalSpace
             // 
-            this.TotalSpace.Text = "Total";
+            this.TotalSpace.Text = "Емкость";
             this.TotalSpace.Width = 91;
+            // 
+            // ejectButton
+            // 
+            this.ejectButton.Location = new System.Drawing.Point(12, 195);
+            this.ejectButton.Name = "ejectButton";
+            this.ejectButton.Size = new System.Drawing.Size(75, 23);
+            this.ejectButton.TabIndex = 8;
+            this.ejectButton.Text = "Извлечь";
+            this.ejectButton.UseVisualStyleBackColor = true;
+            this.ejectButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // USBView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(469, 405);
+            this.ClientSize = new System.Drawing.Size(469, 221);
+            this.Controls.Add(this.ejectButton);
             this.Controls.Add(this.usbList);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -127,6 +140,7 @@
         private System.Windows.Forms.ColumnHeader FreeSpace;
         private System.Windows.Forms.ColumnHeader UsedSpace;
         private System.Windows.Forms.ColumnHeader TotalSpace;
+        public System.Windows.Forms.Button ejectButton;
     }
 }
 
