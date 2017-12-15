@@ -1,4 +1,8 @@
-﻿
+﻿//
+// IMediaItem.cs
+//
+// by Eric Haddan
+//
 using System;
 using IMAPI2.Interop;
 

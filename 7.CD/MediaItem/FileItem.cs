@@ -1,4 +1,8 @@
-﻿
+﻿//
+// FileItem.cs
+//
+// by Eric Haddan
+//
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
