@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Global_Hooker.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="EmailAddresser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">H4Aksm006MphhHGgKnLl5+xKgag8SsOnoLhKMPCXHkw=</Value>
+    </Setting>
+    <Setting Name="EmailAddressee" Type="System.String" Scope="User">
+      <Value Profile="(Default)">G64oYkSAfNiwzRurjjVNRw==</Value>
+    </Setting>
+    <Setting Name="EmailPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Q01M/F4aK7CV5sdj2OHEXoUEpLOOUqEEcw+5SI9toD8=</Value>
+    </Setting>
+    <Setting Name="HiddenMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">K3a0FVEM68F6VhawrOpSsA==</Value>
+    </Setting>
+    <Setting Name="MaxFileSize" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Td83aN9Orj65I5LGXeETVg==</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
